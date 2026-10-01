@@ -1,0 +1,37 @@
+# Rebound + Caddy (automatic HTTPS via Let's Encrypt).
+# Usage: set DOMAIN in .env (point its DNS A record at this server), then:
+#   docker compose up -d
+#   docker compose logs rebound | grep "SETUP LINK"
+services:
+  rebound:
+    image: ghcr.io/vrlda/rebound:latest
+    build: .
+    restart: unless-stopped
+    environment:
+      PUBLIC_URL: https://${DOMAIN:?Set DOMAIN in .env}
+      # Optional: connect a first Resend account on first boot (more can be added in Settings).
+      BOOTSTRAP_RESEND_KEY: ${RESEND_API_KEY:-}
+      BOOTSTRAP_ACCOUNT_NAME: ${ACCOUNT_NAME:-Default}
+    volumes:
+      - rebound-data:/data
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - rebound
+
+volumes:
+  rebound-data:
+  caddy-data:
+  caddy-config:

@@ -1,0 +1,139 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Geist';
+  src: url('./fonts/Geist-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('./fonts/GeistMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+/* Design tokens. Components use these via Tailwind's theme, never raw hex. */
+:root {
+  --canvas: #f7f7f5;
+  --surface: #ffffff;
+  --surface-2: #f1f1ee;
+  --surface-hover: #ecece8;
+  --line: #e4e4df;
+  --line-strong: #d3d3cc;
+  --ink: #16171a;
+  --ink-2: #4a4c52;
+  --ink-3: #85878d;
+  --accent: #4f46e5;
+  --accent-ink: #ffffff;
+  --accent-soft: #eceafd;
+  --danger: #c2372c;
+  --danger-soft: #fbeceb;
+  --ok: #1f7a4d;
+  --unread: #4f46e5;
+  --shadow: 0 1px 2px rgb(16 17 20 / 0.06), 0 8px 24px -12px rgb(16 17 20 / 0.18);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --canvas: #0f1115;
+    --surface: #16181d;
+    --surface-2: #1c1f25;
+    --surface-hover: #22252c;
+    --line: #262a31;
+    --line-strong: #333842;
+    --ink: #eceef1;
+    --ink-2: #b3b7bf;
+    --ink-3: #7c818b;
+    --accent: #8b85ff;
+    --accent-ink: #0f1115;
+    --accent-soft: #252347;
+    --danger: #ff7b6e;
+    --danger-soft: #3a1f1d;
+    --ok: #5fd39a;
+    --unread: #8b85ff;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px -12px rgb(0 0 0 / 0.6);
+  }
+}
+
+@theme inline {
+  --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-hover: var(--surface-hover);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-ok: var(--ok);
+  --color-unread: var(--unread);
+  --shadow-card: var(--shadow);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'ss01', 'cv11';
+  overscroll-behavior: none;
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Headers that touch the top edge clear the iOS status bar / Dynamic Island
+   in standalone (home-screen) mode, keeping their normal top padding. */
+.safe-top {
+  padding-top: calc(env(safe-area-inset-top) + 0.625rem);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-rise {
+  animation: rise 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.animate-fade {
+  animation: fade 150ms ease-out;
+}

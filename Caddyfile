@@ -1,0 +1,7 @@
+{$DOMAIN} {
+	encode zstd gzip
+	reverse_proxy rebound:8080 {
+		# Rebound rate-limits logins per client IP; pass the real one through.
+		header_up X-Real-IP {remote_host}
+	}
+}

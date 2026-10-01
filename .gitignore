@@ -1,0 +1,18 @@
+# Build output (the web app is built into server/dist at image build time)
+server/dist/*
+!server/dist/.gitkeep
+web/node_modules/
+/rebound
+*.test
+
+# Local data and secrets
+.env
+data/
+*.db
+*.db-wal
+*.db-shm
+master.key
+
+.DS_Store
+/server/rebound
+/server/vulta-inbox
