@@ -19,6 +19,8 @@ Read, reply and send from every Resend account you own — on desktop and on you
 
 Resend is great for sending email and can receive it too — but the dashboard isn't an email client: no notifications, no replies, no threads. **Rebound turns your Resend receiving into a real inbox** that you host yourself.
 
+Rebound started as the in-house inbox for [Vulta](https://vulta.one), a non-custodial card and crypto payment platform, and was open-sourced from there.
+
 ## Features
 
 - **Every Resend account in one inbox** — connect as many accounts as you like (your company, side projects, clients), each with its own color, sending addresses and signature.
